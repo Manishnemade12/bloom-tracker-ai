@@ -28,7 +28,7 @@ const Profile = () => {
       setTaxRegime(profile.tax_regime || "");
     }
     if (user) {
-      (supabase.from as any)("documents").select("id, file_name, status, created_at").order("created_at", { ascending: false }).then(({ data }: any) => setDocuments(data || []));
+      supabase.from("documents").select("id, file_name, status, created_at").order("created_at", { ascending: false }).then(({ data }: any) => setDocuments(data || []));
     }
   }, [profile, user]);
 
@@ -36,7 +36,7 @@ const Profile = () => {
     if (!user) return;
     setSaving(true);
     try {
-      const { error } = await (supabase.from as any)("profiles").update({
+      const { error } = await supabase.from("profiles").update({
         full_name: fullName,
         employment_type: employment,
         age_group: ageGroup,

@@ -22,7 +22,7 @@ const Documents = () => {
   }, [user]);
 
   const fetchDocuments = async () => {
-    const { data } = await (supabase.from as any)("documents").select("*").order("created_at", { ascending: false });
+    const { data } = await supabase.from("documents").select("*").order("created_at", { ascending: false });
     setDocuments(data || []);
   };
 
@@ -37,7 +37,7 @@ const Documents = () => {
         const { error: uploadError } = await supabase.storage.from("tax-documents").upload(filePath, file);
         if (uploadError) throw uploadError;
 
-        const { data: doc, error: insertError } = await (supabase.from as any)("documents").insert({
+        const { data: doc, error: insertError } = await supabase.from("documents").insert({
           user_id: user.id,
           file_name: file.name,
           file_type: file.type,
@@ -90,7 +90,7 @@ const Documents = () => {
 
   const deleteDocument = async (doc: any) => {
     await supabase.storage.from("tax-documents").remove([doc.file_path]);
-    await (supabase.from as any)("documents").delete().eq("id", doc.id);
+    await supabase.from("documents").delete().eq("id", doc.id);
     fetchDocuments();
     toast({ title: "Document deleted" });
   };

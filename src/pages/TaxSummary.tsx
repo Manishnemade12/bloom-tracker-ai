@@ -16,8 +16,8 @@ const TaxSummary = () => {
 
   useEffect(() => {
     if (user) {
-      (supabase.from as any)("financial_data").select("*").eq("financial_year", "2025-26").single().then(({ data }: any) => setFinancialData(data));
-      (supabase.from as any)("tax_analyses").select("*").eq("financial_year", "2025-26").single().then(({ data }: any) => setAnalysis(data));
+      supabase.from("financial_data").select("*").eq("financial_year", "2025-26").single().then(({ data }: any) => setFinancialData(data));
+      supabase.from("tax_analyses").select("*").eq("financial_year", "2025-26").single().then(({ data }: any) => setAnalysis(data));
     }
   }, [user]);
 

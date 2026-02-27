@@ -22,9 +22,9 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     const [docsRes, finRes, analysisRes] = await Promise.all([
-      (supabase.from as any)("documents").select("id", { count: "exact", head: true }),
-      (supabase.from as any)("financial_data").select("*").eq("financial_year", "2025-26").single(),
-      (supabase.from as any)("tax_analyses").select("*").eq("financial_year", "2025-26").single(),
+      supabase.from("documents").select("id", { count: "exact", head: true }),
+      supabase.from("financial_data").select("*").eq("financial_year", "2025-26").single(),
+      supabase.from("tax_analyses").select("*").eq("financial_year", "2025-26").single(),
     ]);
 
     const fin = finRes.data;

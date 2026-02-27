@@ -76,7 +76,7 @@ const Onboarding = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not logged in");
 
-      const { error } = await (supabase.from as any)("profiles").update({
+      const { error } = await supabase.from("profiles").update({
         employment_type: employment,
         income_sources: incomeSources,
         age_group: ageGroup,
@@ -87,7 +87,7 @@ const Onboarding = () => {
       if (error) throw error;
 
       // Create initial financial data record
-      await (supabase.from as any)("financial_data").insert({
+      await supabase.from("financial_data").insert({
         user_id: user.id,
         financial_year: "2025-26",
       });
