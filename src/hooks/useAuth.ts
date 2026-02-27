@@ -34,9 +34,9 @@ export function useAuth(redirectIfNoProfile = true) {
   }, [navigate]);
 
   const fetchProfile = async (userId: string) => {
-    const { data } = await supabase.from("profiles").select("*").eq("user_id", userId).single();
+    const { data } = await (supabase.from as any)("profiles").select("*").eq("user_id", userId).single();
     setProfile(data);
-    if (redirectIfNoProfile && data && !data.onboarding_completed) {
+    if (redirectIfNoProfile && data && !(data as any).onboarding_completed) {
       navigate("/onboarding");
     }
     setLoading(false);
