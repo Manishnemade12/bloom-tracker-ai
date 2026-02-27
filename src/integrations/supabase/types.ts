@@ -10,147 +10,201 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "13.0.5"
+    PostgrestVersion: "14.1"
   }
   public: {
     Tables: {
-      daily_logs: {
+      documents: {
         Row: {
-          cravings: string[] | null
           created_at: string
-          energy_level: string | null
-          exercise: string | null
-          flow: string | null
-          food_log: string | null
+          extracted_data: Json | null
+          file_name: string
+          file_path: string
+          file_size: number | null
+          file_type: string
           id: string
-          log_date: string
-          medications: string[] | null
-          mood: string | null
-          sleep_hours: number | null
-          sleep_quality: string | null
-          stress_level: string | null
-          symptoms: string[] | null
+          status: string
           updated_at: string
           user_id: string
-          water_intake: number | null
-          weight: number | null
         }
         Insert: {
-          cravings?: string[] | null
           created_at?: string
-          energy_level?: string | null
-          exercise?: string | null
-          flow?: string | null
-          food_log?: string | null
+          extracted_data?: Json | null
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          file_type: string
           id?: string
-          log_date: string
-          medications?: string[] | null
-          mood?: string | null
-          sleep_hours?: number | null
-          sleep_quality?: string | null
-          stress_level?: string | null
-          symptoms?: string[] | null
+          status?: string
           updated_at?: string
           user_id: string
-          water_intake?: number | null
-          weight?: number | null
         }
         Update: {
-          cravings?: string[] | null
           created_at?: string
-          energy_level?: string | null
-          exercise?: string | null
-          flow?: string | null
-          food_log?: string | null
+          extracted_data?: Json | null
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          file_type?: string
           id?: string
-          log_date?: string
-          medications?: string[] | null
-          mood?: string | null
-          sleep_hours?: number | null
-          sleep_quality?: string | null
-          stress_level?: string | null
-          symptoms?: string[] | null
+          status?: string
           updated_at?: string
           user_id?: string
-          water_intake?: number | null
-          weight?: number | null
+        }
+        Relationships: []
+      }
+      financial_data: {
+        Row: {
+          business_income: number | null
+          created_at: string
+          deductions_80c: number | null
+          deductions_80d: number | null
+          deductions_80e: number | null
+          deductions_80g: number | null
+          deductions_hra: number | null
+          deductions_lta: number | null
+          deductions_nps: number | null
+          financial_year: string
+          gross_salary: number | null
+          hra_received: number | null
+          id: string
+          interest_income: number | null
+          lta_received: number | null
+          other_deductions: number | null
+          other_income: number | null
+          raw_data: Json | null
+          rental_income: number | null
+          standard_deduction: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          business_income?: number | null
+          created_at?: string
+          deductions_80c?: number | null
+          deductions_80d?: number | null
+          deductions_80e?: number | null
+          deductions_80g?: number | null
+          deductions_hra?: number | null
+          deductions_lta?: number | null
+          deductions_nps?: number | null
+          financial_year?: string
+          gross_salary?: number | null
+          hra_received?: number | null
+          id?: string
+          interest_income?: number | null
+          lta_received?: number | null
+          other_deductions?: number | null
+          other_income?: number | null
+          raw_data?: Json | null
+          rental_income?: number | null
+          standard_deduction?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          business_income?: number | null
+          created_at?: string
+          deductions_80c?: number | null
+          deductions_80d?: number | null
+          deductions_80e?: number | null
+          deductions_80g?: number | null
+          deductions_hra?: number | null
+          deductions_lta?: number | null
+          deductions_nps?: number | null
+          financial_year?: string
+          gross_salary?: number | null
+          hra_received?: number | null
+          id?: string
+          interest_income?: number | null
+          lta_received?: number | null
+          other_deductions?: number | null
+          other_income?: number | null
+          raw_data?: Json | null
+          rental_income?: number | null
+          standard_deduction?: number | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
       profiles: {
         Row: {
-          activity_level: string | null
-          age: number | null
+          age_group: string | null
           created_at: string
-          cycle_length: number | null
-          height: number | null
+          employment_type: string | null
+          full_name: string | null
           id: string
-          last_period_start: string | null
-          location: string | null
-          name: string
-          period_duration: number | null
+          income_sources: string[] | null
+          onboarding_completed: boolean
+          tax_regime: string | null
           updated_at: string
           user_id: string
-          weight: number | null
         }
         Insert: {
-          activity_level?: string | null
-          age?: number | null
+          age_group?: string | null
           created_at?: string
-          cycle_length?: number | null
-          height?: number | null
+          employment_type?: string | null
+          full_name?: string | null
           id?: string
-          last_period_start?: string | null
-          location?: string | null
-          name: string
-          period_duration?: number | null
+          income_sources?: string[] | null
+          onboarding_completed?: boolean
+          tax_regime?: string | null
           updated_at?: string
           user_id: string
-          weight?: number | null
         }
         Update: {
-          activity_level?: string | null
-          age?: number | null
+          age_group?: string | null
           created_at?: string
-          cycle_length?: number | null
-          height?: number | null
+          employment_type?: string | null
+          full_name?: string | null
           id?: string
-          last_period_start?: string | null
-          location?: string | null
-          name?: string
-          period_duration?: number | null
+          income_sources?: string[] | null
+          onboarding_completed?: boolean
+          tax_regime?: string | null
           updated_at?: string
           user_id?: string
-          weight?: number | null
         }
         Relationships: []
       }
-      reminders: {
+      tax_analyses: {
         Row: {
+          analysis_summary: string | null
           created_at: string
+          deduction_suggestions: Json | null
+          financial_year: string
           id: string
-          is_sent: boolean | null
-          message: string | null
-          reminder_date: string
-          reminder_type: string
+          new_regime_tax: number | null
+          old_regime_tax: number | null
+          recommended_regime: string | null
+          scheme_recommendations: Json | null
+          updated_at: string
           user_id: string
         }
         Insert: {
+          analysis_summary?: string | null
           created_at?: string
+          deduction_suggestions?: Json | null
+          financial_year?: string
           id?: string
-          is_sent?: boolean | null
-          message?: string | null
-          reminder_date: string
-          reminder_type: string
+          new_regime_tax?: number | null
+          old_regime_tax?: number | null
+          recommended_regime?: string | null
+          scheme_recommendations?: Json | null
+          updated_at?: string
           user_id: string
         }
         Update: {
+          analysis_summary?: string | null
           created_at?: string
+          deduction_suggestions?: Json | null
+          financial_year?: string
           id?: string
-          is_sent?: boolean | null
-          message?: string | null
-          reminder_date?: string
-          reminder_type?: string
+          new_regime_tax?: number | null
+          old_regime_tax?: number | null
+          recommended_regime?: string | null
+          scheme_recommendations?: Json | null
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
