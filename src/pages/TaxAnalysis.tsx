@@ -26,12 +26,12 @@ const TaxAnalysis = () => {
   }, [user]);
 
   const fetchFinancialData = async () => {
-    const { data } = await supabase.from("financial_data").select("*").eq("financial_year", "2025-26").single();
+    const { data } = await (supabase.from as any)("financial_data").select("*").eq("financial_year", "2025-26").single();
     if (data) {
       setFinancialData(data);
     } else if (user) {
       // Create initial financial data if none exists
-      const { data: newData } = await supabase.from("financial_data").insert({
+      const { data: newData } = await (supabase.from as any)("financial_data").insert({
         user_id: user.id,
         financial_year: "2025-26",
       }).select().single();
@@ -40,7 +40,7 @@ const TaxAnalysis = () => {
   };
 
   const fetchAnalysis = async () => {
-    const { data } = await supabase.from("tax_analyses").select("*").eq("financial_year", "2025-26").single();
+    const { data } = await (supabase.from as any)("tax_analyses").select("*").eq("financial_year", "2025-26").single();
     if (data) setAnalysis(data);
   };
 
@@ -52,7 +52,7 @@ const TaxAnalysis = () => {
     if (!financialData || !user) return;
     setSaving(true);
     try {
-      await supabase.from("financial_data").update(financialData).eq("id", financialData.id);
+      await (supabase.from as any)("financial_data").update(financialData).eq("id", financialData.id);
       toast({ title: "Saved!" });
     } catch (err: any) {
       toast({ title: "Error", description: err.message, variant: "destructive" });

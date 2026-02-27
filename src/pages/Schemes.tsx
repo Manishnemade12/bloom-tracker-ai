@@ -30,14 +30,14 @@ const Schemes = () => {
   }, [user]);
 
   const fetchAiSchemes = async () => {
-    const { data } = await supabase.from("tax_analyses").select("scheme_recommendations").eq("financial_year", "2025-26").single();
+    const { data } = await (supabase.from as any)("tax_analyses").select("scheme_recommendations").eq("financial_year", "2025-26").single();
     if (data?.scheme_recommendations && Array.isArray(data.scheme_recommendations)) setAiSchemes(data.scheme_recommendations as any[]);
   };
 
   const getPersonalizedSchemes = async () => {
     setLoadingAi(true);
     try {
-      const { data: finData } = await supabase.from("financial_data").select("*").eq("financial_year", "2025-26").single();
+      const { data: finData } = await (supabase.from as any)("financial_data").select("*").eq("financial_year", "2025-26").single();
       const { data, error } = await supabase.functions.invoke("tax-analysis", {
         body: { financialData: finData || {}, profile },
       });
