@@ -27,7 +27,16 @@ const TaxAnalysis = () => {
 
   const fetchFinancialData = async () => {
     const { data } = await supabase.from("financial_data").select("*").eq("financial_year", "2025-26").single();
-    if (data) setFinancialData(data);
+    if (data) {
+      setFinancialData(data);
+    } else if (user) {
+      // Create initial financial data if none exists
+      const { data: newData } = await supabase.from("financial_data").insert({
+        user_id: user.id,
+        financial_year: "2025-26",
+      }).select().single();
+      if (newData) setFinancialData(newData);
+    }
   };
 
   const fetchAnalysis = async () => {

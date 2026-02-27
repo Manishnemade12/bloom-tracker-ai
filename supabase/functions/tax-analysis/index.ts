@@ -15,7 +15,7 @@ serve(async (req) => {
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_PUBLISHABLE_KEY")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
       { global: { headers: { Authorization: authHeader } } }
     );
 
@@ -144,17 +144,29 @@ Provide complete tax analysis with regime comparison, deduction suggestions, and
       analysisData = JSON.parse(toolCall.function.arguments);
     }
 
-    // Save analysis
-    const { data: savedAnalysis } = await supabase.from("tax_analyses").upsert({
-      user_id: user.id,
-      financial_year: financialData.financial_year || "2025-26",
+    // Save analysis - check if exists first, then insert or update
+    const fy = financialData.financial_year || "2025-26";
+    const { data: existing } = await supabase.from("tax_analyses")
+      .select("id").eq("financial_year", fy).single();
+
+    const analysisPayload = {
       old_regime_tax: analysisData.old_regime_tax || 0,
       new_regime_tax: analysisData.new_regime_tax || 0,
       recommended_regime: analysisData.recommended_regime,
       deduction_suggestions: analysisData.deduction_suggestions,
       scheme_recommendations: analysisData.scheme_recommendations,
       analysis_summary: analysisData.analysis_summary,
-    }, { onConflict: "user_id,financial_year" }).select().single();
+    };
+
+    if (existing) {
+      await supabase.from("tax_analyses").update(analysisPayload).eq("id", existing.id);
+    } else {
+      await supabase.from("tax_analyses").insert({
+        user_id: user.id,
+        financial_year: fy,
+        ...analysisPayload,
+      });
+    }
 
     return new Response(JSON.stringify({ success: true, data: analysisData }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
