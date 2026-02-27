@@ -1,7 +1,1 @@
-project_id = "jazmygufltlqjwqrpbnn"
-
-[functions.analyze-document]
-verify_jwt = false
-
-[functions.tax-analysis]
-verify_jwt = false
+project_id = "gsckoxqeypfruyjnuxkm"
