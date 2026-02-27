@@ -1,4 +1,4 @@
-project_id = "mlhwozyowpkgplnbewxs"
+project_id = "jazmygufltlqjwqrpbnn"
 
 [functions.analyze-document]
 verify_jwt = false

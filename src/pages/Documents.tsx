@@ -5,7 +5,7 @@ import DashboardNav from "@/components/DashboardNav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, FileText, CheckCircle2, Loader2, Trash2, Eye } from "lucide-react";
+import { Upload, FileText, CheckCircle2, Loader2, Trash2, Eye, Brain } from "lucide-react";
 import { motion } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -210,8 +210,5 @@ const Documents = () => {
     </div>
   );
 };
-
-// Need to import Brain icon used above
-import { Brain } from "lucide-react";
 
 export default Documents;
